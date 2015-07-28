@@ -140,8 +140,9 @@ float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gra
 // packet structure for InvenSense teapot demo
 uint8_t teapotPacket[14] = { '$', 0x02, 0,0, 0,0, 0,0, 0,0, 0x00, 0x00, '\r', '\n' };
 
-const int fall = 6000;
-
+const int varFall = 6000;
+const int varTone = 210;
+const int varDuration = 500;
 // ================================================================
 // ===               INTERRUPT DETECTION ROUTINE                ===
 // ================================================================
@@ -253,10 +254,10 @@ void loop()
         // while() loop to immediately process the MPU data
         
         //alterna liga o alerta de queda
-        if(aaReal.x > fall || aaReal.y > fall || aaReal.z > fall)
-            tone(LED_PIN, 210, 500);//caindo para frente
-        else if(aaReal.x < -fall || aaReal.y < -fall || aaReal.z < -fall)
-            tone(LED_PIN, 210, 500); //caindo para tras
+        if(aaReal.x > varFall || aaReal.y > varFall || aaReal.z > varFall)
+            tone(LED_PIN, varTone, varDuration);//caindo para frente
+        else if(aaReal.x < -varFall || aaReal.y < -varFall || aaReal.z < -varFall)
+            tone(LED_PIN, varTone, varDuration); //caindo para tras
     }
 
     // reset interrupt flag and get INT_STATUS byte
